@@ -26,7 +26,7 @@
 
 import argparse
 
-def amount_on_account(account_num):
+def amount_in_account(account_num):
     try:
         with open(account_num) as file:
             return int(file.read())
@@ -40,33 +40,29 @@ def amount_on_account(account_num):
 parser = argparse.ArgumentParser(description="bank transfer")
 
 # Adding arguments
-parser.add_argument('--From', '--from', type=str, help="senders_account")
-parser.add_argument('--to', type=str, help="income_account")
-parser.add_argument('--amount', type=int, help="amount")
+parser.add_argument('--from', type=str, help="senders_account", required=True, dest = "from_account")
+parser.add_argument('--to', type=str, help="income_account", required=True)
+parser.add_argument('--amount', type=int, help="amount", required=True)
 
 
 args = parser.parse_args()
 
-if args.From and args.to and args.amount:
 
-    # Finding the amounts on the respective accounts
-    senders_amount = amount_on_account(args.From)
-    income_amount = amount_on_account(args.to)
+# Finding the amounts in the respective accounts
+senders_amount = amount_in_account(args.from_account)
+recipient_amount = amount_in_account(args.to)
 
 
-    # Transaction
-    if senders_amount >= args.amount:
-        senders_amount = senders_amount - args.amount
-        income_amount = income_amount + args.amount
+# Transaction
+if senders_amount >= args.amount:
+    senders_amount = senders_amount - args.amount
+    recipient_amount = recipient_amount + args.amount
+    
+    # Write the new amounts into the files
+    with open(args.from_account, mode='w') as file:
+        print(senders_amount, file=file)
         
-        # Write the new amounts into the files
-        with open(args.From, mode='w') as file:
-            print(senders_amount, file=file)
-            
-        with open(args.to, mode='w') as file:
-            print(income_amount, file=file)  
-    else:
-        print('There is not enough money on the account for this transaction')
-
+    with open(args.to, mode='w') as file:
+        print(recipient_amount, file=file)  
 else:
-    print('The parameters --from, --to and --amount have to be specified')
+    print('There is not enough money in the account for this transaction')
