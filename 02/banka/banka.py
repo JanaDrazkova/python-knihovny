@@ -31,8 +31,12 @@ def amount_in_account(account_num):
         with open(account_num) as file:
             return int(file.read())
     except FileNotFoundError:
-        print("The sender's account doesn't exist.")
+        print("The account doesn't exist.")
         exit()
+        
+def set_new_balance_in_account(account_num, amount):        
+    with open(account_num, mode='w') as file:
+        print(amount, file=file)    
 
     
 
@@ -59,10 +63,8 @@ if senders_amount >= args.amount:
     recipient_amount = recipient_amount + args.amount
     
     # Write the new amounts into the files
-    with open(args.from_account, mode='w') as file:
-        print(senders_amount, file=file)
-        
-    with open(args.to, mode='w') as file:
-        print(recipient_amount, file=file)  
+    set_new_balance_in_account(args.from_account, senders_amount)
+    set_new_balance_in_account(args.to, recipient_amount)
+  
 else:
     print('There is not enough money in the account for this transaction')
