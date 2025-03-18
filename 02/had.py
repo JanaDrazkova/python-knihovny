@@ -11,6 +11,10 @@ def replace_2letters_with_one(string, position, letter):
 while "_" in input_text:
     position = input_text.index("_")
     input_text = replace_2letters_with_one(input_text, position, input_text[position+1].upper())
+    if len(input_text) > position+1:
+        input_text = replace_2letters_with_one(input_text, position, input_text[position+1].upper())
+    else:
+        input_text = input_text[:-1]
 
 
 print(input_text)
