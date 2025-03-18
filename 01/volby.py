@@ -52,4 +52,4 @@ print(f"Nejvyšší volební účast byla v/ve {kraje[min_ucast]}.")
 vitez_v_kraji = [kandidati[kraj.index(max(kraj))] for kraj in hlasy]
 
 # Otazka 5
-procentualni_zisk = [[round(kraj[i]/sum(kraj)*100,1) for i in range(len(kandidati))] for kraj in hlasy]
+procentualni_zisk = [[round(kraj[i]/sum(kraj)*100,1) for i in range(len(kandidati))] for kraj in hlasy] 
