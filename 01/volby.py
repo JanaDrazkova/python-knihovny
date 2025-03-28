@@ -46,7 +46,7 @@ max_ucast = volebni_ucast.index(max(volebni_ucast))
 min_ucast = volebni_ucast.index(min(volebni_ucast))
 
 print(f"Nejvyšší volební účast byla v/ve {kraje[max_ucast]}.")
-print(f"Nejvyšší volební účast byla v/ve {kraje[min_ucast]}.")
+print(f"Nejnižší volební účast byla v/ve {kraje[min_ucast]}.")
 
 # Otazka 4
 vitez_v_kraji = [kandidati[kraj.index(max(kraj))] for kraj in hlasy]
