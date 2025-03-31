@@ -22,7 +22,8 @@ except ValueError:
 
 #non_positive integers
 if user_num < 1:
-    raise ValueError(f"Zadané číslo musí být přirozené.")
+    print(f"Zadané číslo musí být přirozené.")
+    exit()
 
 # parity check
 if is_prime_number(user_num):
