@@ -23,3 +23,48 @@
 #
 # Pro tento pokročilý způsob je však třeba použít pokročilou knihovnu pro práci
 # s parametry příkazové řádky, jako např. argparse nebo click.
+
+import argparse
+
+def amount_in_account(account_num):
+    try:
+        with open(account_num) as file:
+            return int(file.read())
+    except FileNotFoundError:
+        print("The account doesn't exist.")
+        exit()
+        
+def set_new_balance_in_account(account_num, amount):        
+    with open(account_num, mode='w') as file:
+        print(amount, file=file)    
+
+    
+
+# Create parser
+parser = argparse.ArgumentParser(description="bank transfer")
+
+# Adding arguments
+parser.add_argument('--from', type=str, help="senders_account", required=True, dest = "from_account")
+parser.add_argument('--to', type=str, help="income_account", required=True)
+parser.add_argument('--amount', type=int, help="amount", required=True)
+
+
+args = parser.parse_args()
+
+
+# Finding the amounts in the respective accounts
+senders_amount = amount_in_account(args.from_account)
+recipient_amount = amount_in_account(args.to)
+
+
+# Transaction
+if senders_amount >= args.amount:
+    senders_amount = senders_amount - args.amount
+    recipient_amount = recipient_amount + args.amount
+    
+    # Write the new amounts into the files
+    set_new_balance_in_account(args.from_account, senders_amount)
+    set_new_balance_in_account(args.to, recipient_amount)
+  
+else:
+    print('There is not enough money in the account for this transaction')
