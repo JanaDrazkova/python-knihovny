@@ -1,0 +1,496 @@
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: center;">
+      <th>Action</th>
+      <th>Red Hat/Fedora</th>
+      <th>Debian/Ubuntu</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Search for package(s). What exact fields are being searched by default varies in each tool. Mostly options bring tools on par.</td>
+      <td>dnf search</td>
+      <td>apt search</td>
+    </tr>
+    <tr>
+      <td>Install package(s) by name</td>
+      <td>dnf install</td>
+      <td>apt install</td>
+    </tr>
+    <tr>
+      <td>Get source package(s) and build dependencies</td>
+      <td>dnf builddep</td>
+      <td>apt build-dep</td>
+    </tr>
+    <tr>
+      <td>Only print the targets instead of performing the actual operation</td>
+      <td>dnf --setopt=tsflags=test</td>
+      <td>apt --simulate (or -s, --dry-run, --just-print)</td>
+    </tr>
+    <tr>
+      <td>Toggle the manual confirmations</td>
+      <td>dnf --assumeyes (-y) or dnf --assumeno</td>
+      <td>apt --yes (-y)</td>
+    </tr>
+    <tr>
+      <td>Refresh the local package repository</td>
+      <td>dnf check-update or dnf makecache or dnf upgrade (built-in auto function)</td>
+      <td>apt update</td>
+    </tr>
+    <tr>
+      <td>Upgrade Packages - Install packages which have an older version already installed</td>
+      <td>dnf upgrade</td>
+      <td>apt upgrade</td>
+    </tr>
+    <tr>
+      <td>Upgrade Packages - Another form of the update command, which can perform more complex updates -- like distribution upgrades. When the usual update command will omit package updates, which include changes in dependencies, this command can perform those updates.</td>
+      <td>dnf distro-sync</td>
+      <td>apt dist-upgrade</td>
+    </tr>
+    <tr>
+      <td>Remove a package(s) and all dependencies by name</td>
+      <td>dnf remove</td>
+      <td>apt autoremove</td>
+    </tr>
+    <tr>
+      <td>Remove a package(s) and its configuration files</td>
+      <td>?</td>
+      <td>apt purge</td>
+    </tr>
+    <tr>
+      <td>Remove a package(s) and all dependencies and configuration files</td>
+      <td>?</td>
+      <td>apt autoremove --purge</td>
+    </tr>
+    <tr>
+      <td>Remove dependencies that are no longer needed (orphans), because e.g. the package which needed the dependencies was removed.</td>
+      <td>dnf autoremove</td>
+      <td>apt autoremove</td>
+    </tr>
+    <tr>
+      <td>Remove packages no longer included in any repositories.</td>
+      <td>dnf repoquery --extras</td>
+      <td>aptitude purge '~o'</td>
+    </tr>
+    <tr>
+      <td>Mark a package previously installed as a dependency as explicitly required.</td>
+      <td>dnf mark install</td>
+      <td>apt-mark manual</td>
+    </tr>
+    <tr>
+      <td>Install package(s) as dependency / without marking as explicitly required.</td>
+      <td>dnf install and then dnf mark remove</td>
+      <td>apt-mark auto</td>
+    </tr>
+    <tr>
+      <td>Only downloads the given package(s) without unpacking or installing them</td>
+      <td>dnf download</td>
+      <td>apt install --download-only (into the package cache) or apt download (bypass the package cache)</td>
+    </tr>
+    <tr>
+      <td>Clean up all local caches. Options might limit what is actually cleaned.</td>
+      <td>dnf clean all</td>
+      <td>apt autoclean removes only unneeded, obsolete information or apt clean</td>
+    </tr>
+    <tr>
+      <td>Start a shell to enter multiple commands in one session</td>
+      <td>dnf shell</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <td>Show a log of actions taken by the software management.</td>
+      <td>dnf history</td>
+      <td>read /var/log/dpkg.log</td>
+    </tr>
+    <tr>
+      <td>Get a dump of the whole system information - Prints, Saves or similar the current state of the package management system. Preferred output is text or XML. (Note: Why either-or here? No tool offers the option to choose the output format.)</td>
+      <td>see /var/lib/rpm/Packages</td>
+      <td>apt-cache stats</td>
+    </tr>
+    <tr>
+      <td>e-mail delivery of package changes</td>
+      <td>NaN</td>
+      <td>apt install apt-listchanges</td>
+    </tr>
+  </tbody>
+</table><table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: center;">
+      <th>Action</th>
+      <th>Red Hat/Fedora</th>
+      <th>Debian/Ubuntu</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Show all or most information about a package. The tools' verbosity for the default command vary. But with options, the tools are on par with each other.</td>
+      <td>dnf list or dnf info</td>
+      <td>apt show or apt-cache policy</td>
+    </tr>
+    <tr>
+      <td>Display local package information: Name, version, description, etc.</td>
+      <td>rpm -qi / dnf info installed</td>
+      <td>dpkg -s or aptitude show</td>
+    </tr>
+    <tr>
+      <td>Display remote package information: Name, version, description, etc.</td>
+      <td>dnf info</td>
+      <td>apt-cache show or aptitude show</td>
+    </tr>
+    <tr>
+      <td>Display files provided by local package</td>
+      <td>rpm -ql</td>
+      <td>dpkg -L</td>
+    </tr>
+    <tr>
+      <td>Display files provided by a remote package</td>
+      <td>dnf repoquery -l or repoquery -l (from package yum-utils)</td>
+      <td>apt-file list</td>
+    </tr>
+    <tr>
+      <td>Query the package which provides FILE</td>
+      <td>rpm -qf (installed only) or dnf provides (everything) or repoquery -f (from package yum-utils)</td>
+      <td>dpkg -S or dlocate</td>
+    </tr>
+    <tr>
+      <td>List the files that the package holds. Again, this functionality can be mimicked by other more complex commands.</td>
+      <td>dnf repoquery -l</td>
+      <td>dpkg-query -L</td>
+    </tr>
+    <tr>
+      <td>Displays packages which provide the given exp. aka reverse provides. Mainly a shortcut to search a specific field. Other tools might offer this functionality through the search command.</td>
+      <td>dnf provides</td>
+      <td>apt-file search</td>
+    </tr>
+    <tr>
+      <td>Search all packages to find the one which holds the specified file.</td>
+      <td>dnf provides</td>
+      <td>apt-file search or auto-apt is using this functionality.</td>
+    </tr>
+    <tr>
+      <td>Show the changelog of a package</td>
+      <td>dnf changelog</td>
+      <td>apt-get changelog</td>
+    </tr>
+  </tbody>
+</table><table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: center;">
+      <th>Action</th>
+      <th>Red Hat/Fedora</th>
+      <th>Debian/Ubuntu</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Search for package(s) by searching the expression in name, description, short description. What exact fields are being searched by default varies in each tool. Mostly options bring tools on par.</td>
+      <td>dnf search</td>
+      <td>apt search</td>
+    </tr>
+    <tr>
+      <td>Lists packages which have an update available. Note: Some provide special commands to limit the output to certain installation sources, others use options.</td>
+      <td>dnf list updates or dnf check-update</td>
+      <td>apt list --upgradable</td>
+    </tr>
+    <tr>
+      <td>Display a list of all packages in all installation sources that are handled by the packages management. Some tools provide options or additional commands to limit the output to a specific installation source.</td>
+      <td>dnf list available</td>
+      <td>apt-cache dumpavail or apt-cache dump (Cache only) or apt-cache pkgnames</td>
+    </tr>
+    <tr>
+      <td>Generates a list of installed packages</td>
+      <td>dnf list installed</td>
+      <td>dpkg --list | grep ^i</td>
+    </tr>
+    <tr>
+      <td>List packages that are installed but are not available in any installation source (anymore).</td>
+      <td>dnf list extras</td>
+      <td>apt --installed list | grep ,local</td>
+    </tr>
+    <tr>
+      <td>List packages that were recently added to one of the installation sources, i.e. which are new to it.</td>
+      <td>dnf list recent</td>
+      <td>aptitude search '~N' or aptitude forget-new</td>
+    </tr>
+    <tr>
+      <td>List installed local packages along with version</td>
+      <td>rpm -qa</td>
+      <td>dpkg -l or apt list --installed</td>
+    </tr>
+    <tr>
+      <td>Search locally installed package for names or descriptions</td>
+      <td>rpm -qa '*&lt;str&gt;*'</td>
+      <td>aptitude search '~i(~n $name|~d $description)'</td>
+    </tr>
+    <tr>
+      <td>List packages not required by any other package</td>
+      <td>dnf leaves or package-cleanup --leaves --all</td>
+      <td>deborphan -anp1</td>
+    </tr>
+    <tr>
+      <td>List packages installed explicitly (not as dependencies)</td>
+      <td>dnf history userinstalled</td>
+      <td>apt-mark showmanual</td>
+    </tr>
+    <tr>
+      <td>List packages installed automatically (as dependencies)</td>
+      <td>grep -E '^i[^+]' (workaround)</td>
+      <td>apt-mark showauto</td>
+    </tr>
+  </tbody>
+</table><table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: center;">
+      <th>Action</th>
+      <th>Red Hat/Fedora</th>
+      <th>Debian/Ubuntu</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Display packages which require X to be installed, aka show reverse dependencies.</td>
+      <td>dnf repoquery --alldeps --whatrequires or repoquery --whatrequires</td>
+      <td>apt-cache rdepends or aptitude search ~D$pattern</td>
+    </tr>
+    <tr>
+      <td>Display packages which conflict with given expression (often package). Search can be used as well to mimic this function.</td>
+      <td>dnf repoquery --conflicts</td>
+      <td>aptitude search '~C$pattern'</td>
+    </tr>
+    <tr>
+      <td>List all packages which are required for the given package, aka show dependencies.</td>
+      <td>dnf repoquery --requires or repoquery -R</td>
+      <td>apt-cache depends or apt-cache show</td>
+    </tr>
+    <tr>
+      <td>List what the current package provides</td>
+      <td>dnf repoquery --provides</td>
+      <td>dpkg -s or aptitude show</td>
+    </tr>
+    <tr>
+      <td>List all packages that require a particular package</td>
+      <td>dnf repoquery --installed --alldeps --whatrequires</td>
+      <td>aptitude search ~D{depends,recommends,suggests}:$pattern or aptitude why or apt-cache rdepends</td>
+    </tr>
+    <tr>
+      <td>Display all packages that the specified packages obsoletes.</td>
+      <td>dnf list obsoletes</td>
+      <td>apt-cache show</td>
+    </tr>
+    <tr>
+      <td>Generates an output suitable for processing with dotty for the given package(s).</td>
+      <td>NaN</td>
+      <td>apt-cache dotty</td>
+    </tr>
+  </tbody>
+</table><table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: center;">
+      <th>Action</th>
+      <th>Red Hat/Fedora</th>
+      <th>Debian/Ubuntu</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Installation sources management</td>
+      <td>edit /etc/yum.repos.d/${REPO}.repo</td>
+      <td>edit /etc/apt/sources.list</td>
+    </tr>
+    <tr>
+      <td>Add an installation source to the system. Some tools provide additional commands for certain sources, others allow all types of source URI for the add command. Again others, like apt force editing a sources list. apt-cdrom is a special command, which offers special options design for CDs/DVDs as source.</td>
+      <td>dnf config-manager</td>
+      <td>apt-cdrom add</td>
+    </tr>
+    <tr>
+      <td>Refresh the information about the specified installation source(s) or all installation sources.</td>
+      <td>dnf clean expire-cache and then dnf check-update</td>
+      <td>apt-get update</td>
+    </tr>
+    <tr>
+      <td>Prints a list of all installation sources including important information like URI, alias etc.</td>
+      <td>cat /etc/yum.repos.d/*</td>
+      <td>apt-cache policy</td>
+    </tr>
+    <tr>
+      <td>List all packages from a certain repo</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <td>Disable an installation source for an operation</td>
+      <td>dnf --disablerepo=</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <td>Download packages from a different version of the distribution than the one installed.</td>
+      <td>dnf --releasever=</td>
+      <td>apt-get install -t release package or apt-get install package/release (dependencies not covered)</td>
+    </tr>
+  </tbody>
+</table><table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: center;">
+      <th>Action</th>
+      <th>Red Hat/Fedora</th>
+      <th>Debian/Ubuntu</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Add a package lock rule to keep its current state from being changed</td>
+      <td>edit dnf.conf adding/amending the exclude option</td>
+      <td>apt-mark hold pkg</td>
+    </tr>
+    <tr>
+      <td>Delete a package lock rule</td>
+      <td>NaN</td>
+      <td>apt-mark unhold pkg</td>
+    </tr>
+    <tr>
+      <td>Show a listing of all lock rules</td>
+      <td>NaN</td>
+      <td>/etc/apt/preferences</td>
+    </tr>
+    <tr>
+      <td>Set the priority of the given package to avoid upgrade, force downgrade or to overwrite any default behavior. Can also be used to prefer a package version from a certain installation source.</td>
+      <td>NaN</td>
+      <td>/etc/apt/preferences, apt-cache policy</td>
+    </tr>
+    <tr>
+      <td>Remove a previously set priority</td>
+      <td>NaN</td>
+      <td>/etc/apt/preferences</td>
+    </tr>
+    <tr>
+      <td>Show a list of set priorities</td>
+      <td>NaN</td>
+      <td>apt-cache policy or /etc/apt/preferences</td>
+    </tr>
+  </tbody>
+</table><table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: center;">
+      <th>Action</th>
+      <th>Red Hat/Fedora</th>
+      <th>Debian/Ubuntu</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Verify single package</td>
+      <td>rpm -V</td>
+      <td>debsums</td>
+    </tr>
+    <tr>
+      <td>Verify all packages</td>
+      <td>rpm -Va</td>
+      <td>debsums</td>
+    </tr>
+    <tr>
+      <td>Reinstall given package; this will reinstall the given package without dependency hassle</td>
+      <td>dnf reinstall</td>
+      <td>apt install --reinstall</td>
+    </tr>
+    <tr>
+      <td>Verify dependencies of the complete system; used if installation process was forcefully killed</td>
+      <td>dnf repoquery --requires</td>
+      <td>apt-get check</td>
+    </tr>
+    <tr>
+      <td>Use some magic to fix broken dependencies in a system</td>
+      <td>dnf repoquery --unsatisfied</td>
+      <td>apt-get --fix-broken and then aptitude install</td>
+    </tr>
+    <tr>
+      <td>Add a checkpoint to the package system for later rollback</td>
+      <td>(unnecessary, it is done on every transaction)</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <td>Remove a checkpoint from the system</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <td>Provide a list of all system checkpoints</td>
+      <td>dnf history list</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <td>Rolls entire packages back to a certain date or checkpoint</td>
+      <td>dnf history rollback</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <td>Undo a single specified transaction</td>
+      <td>dnf history undo</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table><table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: center;">
+      <th>Action</th>
+      <th>Red Hat/Fedora</th>
+      <th>Debian/Ubuntu</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Query a package supplied on the command line rather than an entry in the package management database</td>
+      <td>rpm -qp</td>
+      <td>dpkg -I</td>
+    </tr>
+    <tr>
+      <td>List the contents of a package file</td>
+      <td>rpmls rpm -qpl</td>
+      <td>dpkg -c</td>
+    </tr>
+    <tr>
+      <td>Install local package file, e.g. app.rpm and uses the installation sources to resolve dependencies</td>
+      <td>dnf install</td>
+      <td>dpkg -i</td>
+    </tr>
+    <tr>
+      <td>Updates package(s) with local packages and uses the installation sources to resolve dependencies</td>
+      <td>dnf upgrade</td>
+      <td>debi</td>
+    </tr>
+    <tr>
+      <td>Add a local package to the local package cache mostly for debugging purposes.</td>
+      <td>NaN</td>
+      <td>apt-cache add package-filename</td>
+    </tr>
+    <tr>
+      <td>Extract a package</td>
+      <td>rpm2cpio | cpio -vid</td>
+      <td>dpkg-deb -x</td>
+    </tr>
+    <tr>
+      <td>Install/Remove packages to satisfy build-dependencies. Uses information in the source package</td>
+      <td>dnf builddep</td>
+      <td>apt-get build-dep</td>
+    </tr>
+    <tr>
+      <td>Display the source package to the given package name(s)</td>
+      <td>dnf repoquery -s</td>
+      <td>apt-cache showsrc</td>
+    </tr>
+    <tr>
+      <td>Download the corresponding source package(s) to the given package name(s)</td>
+      <td>dnf download --source</td>
+      <td>apt-get source or debcheckout</td>
+    </tr>
+    <tr>
+      <td>Build a package</td>
+      <td>rpmbuild -ba (normal) or mock (in chroot)</td>
+      <td>debuild</td>
+    </tr>
+    <tr>
+      <td>Check for possible packaging issues</td>
+      <td>rpmlint</td>
+      <td>lintian</td>
+    </tr>
+  </tbody>
+</table>
